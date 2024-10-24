@@ -1,0 +1,8 @@
+pandas 
+numpy
+seaborn
+yfinance
+python-dateutil
+openpyxl
+plotly
+-e .

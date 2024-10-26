@@ -7,6 +7,7 @@ class DataFrameStock():
 		self.stocks = stocks
 		self.current_date = current_date
 		self.past_date = past_date
+		self.number_of_stocks = None
 	
 	def set_current_date(self, value):
 		self.current_date = value
@@ -22,7 +23,10 @@ class DataFrameStock():
 
 	def get_dataframe(self):
 		df = yf.download(self.stocks, start=self.past_date, end=self.current_date, interval="1wk", auto_adjust=True)
-		number_of_stocks = len(self.stocks)
-		return df, number_of_stocks
+		return df
+	
+	def get_number_of_stocks(self):
+		self.number_of_stocks = len(self.stocks)
+		return self.number_of_stocks
 
 

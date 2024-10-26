@@ -28,6 +28,7 @@ def get_line_plot(df):
 
 def main():
     st.set_page_config(layout="wide")
+    st.header("Stock Data Analysis")
     number_of_stocks = get_number_of_stocks()
     df = get_clean_data("tickers.xlsx", number_of_stocks=number_of_stocks)
     fig = get_line_plot(df=df)

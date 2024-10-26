@@ -19,9 +19,9 @@ def main():
     url = "https://finance.yahoo.com/u/yahoo-finance/watchlists/semiconductor-stocks/" 	
     symbol_list = DataIngestion(url, headers).get_data()
     current, past_date = get_dates()
-    df = DataFrameStock(symbol_list, current_date=current, past_date=past_date)
-    number_of_stocks = df.get_number_of_stocks()
-    df = df\
+    stock_getter = DataFrameStock(symbol_list, current_date=current, past_date=past_date)
+    number_of_stocks = stock_getter.get_number_of_stocks()
+    df = stock_getter\
         .get_dataframe()\
         .reset_index()
     df['Date'] = df['Date'].dt.tz_localize(None)

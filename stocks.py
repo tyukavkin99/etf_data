@@ -16,6 +16,9 @@ def get_clean_data(data_path, number_of_stocks):
     df_na = df_na.set_index("Date")
     return df_na
 
+def get_returns(df):
+    return df.pct_change()
+
 def get_number_of_stocks():
     with open("number_of_stocks.txt", "r") as f:
         number_of_stocks = f.readline()
@@ -34,6 +37,8 @@ def main():
     df = get_clean_data("tickers.xlsx", number_of_stocks=number_of_stocks)
     fig = get_line_plot(df=df)
     st.plotly_chart(fig, use_container_width=True)
+    returns_df = get_returns(df=df)
+    st.write(returns_df)
 
 if __name__ == "__main__":
     main()

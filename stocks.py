@@ -29,6 +29,12 @@ def get_line_plot(df):
     figure = px.line(data_frame=df)
     return figure
 
+def get_average_returns(df):
+    return df.mean()
+
+def get_std_returns(df):
+    return df.std()
+
 def main():
     st.set_page_config(layout="wide")
     st.header("""Stock Data Analysis of semiconductor companies
@@ -39,6 +45,10 @@ def main():
     st.plotly_chart(fig, use_container_width=True)
     returns_df = get_returns(df=df)
     st.write(returns_df)
+    avg_returns = get_average_returns(returns_df)
+    st.write(avg_returns)
+    std_returns = get_std_returns(returns_df)
+    st.write(std_returns)
 
 if __name__ == "__main__":
     main()

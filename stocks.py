@@ -14,10 +14,11 @@ def get_clean_data(data_path, number_of_stocks):
     df_na = df.fillna(0)
     df_na["Date"] = pd.to_datetime(df_na["Date"])
     df_na = df_na.set_index("Date")
+    df_na = df_na.drop(columns="index")
     return df_na
 
 def get_returns(df):
-    return df.pct_change()
+    return df.pct_change().fillna(0)
 
 def get_number_of_stocks():
     with open("number_of_stocks.txt", "r") as f:
@@ -37,8 +38,7 @@ def get_std_returns(df):
 
 def main():
     st.set_page_config(layout="wide")
-    st.header("""Stock Data Analysis of semiconductor companies
-              from""")
+    st.header("Stock Data Analysis of semiconductor companies")
     number_of_stocks = get_number_of_stocks()
     df = get_clean_data("tickers.xlsx", number_of_stocks=number_of_stocks)
     fig = get_line_plot(df=df)

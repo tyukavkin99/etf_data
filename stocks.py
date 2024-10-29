@@ -45,6 +45,8 @@ def main():
     st.plotly_chart(fig, use_container_width=True)
     returns_df = get_returns(df=df)
     st.write(returns_df)
+    fig2 = get_line_plot(df=returns_df)
+    st.plotly_chart(fig2, use_container_width=True)
     avg_returns = get_average_returns(returns_df)
     st.write(avg_returns)
     std_returns = get_std_returns(returns_df)

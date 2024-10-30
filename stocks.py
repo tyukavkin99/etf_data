@@ -36,6 +36,9 @@ def get_average_returns(df):
 def get_std_returns(df):
     return df.std()
 
+def get_moving_averages(df, window_size = 3):
+    return df.rolling(window = window_size).mean()
+
 def main():
     st.set_page_config(layout="wide")
     st.header("Stock Data Analysis of semiconductor companies")
@@ -48,9 +51,14 @@ def main():
     fig2 = get_line_plot(df=returns_df)
     st.plotly_chart(fig2, use_container_width=True)
     avg_returns = get_average_returns(returns_df)
-    st.write(avg_returns)
+    st.write(avg_returns.to_frame().T)
+    st.caption("This is average returns")
     std_returns = get_std_returns(returns_df)
-    st.write(std_returns)
+    st.write(std_returns.to_frame().T)
+    st.caption("This is standard deviation of returns")
+    moving_averages = get_moving_averages(returns_df)
+    fig3 = get_line_plot(moving_averages)
+    st.plotly_chart(fig3)
 
 if __name__ == "__main__":
     main()

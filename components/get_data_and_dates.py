@@ -29,6 +29,8 @@ class GetDataDates:
             .get_dataframe()\
             .reset_index()
         df['Date'] = df['Date'].dt.tz_localize(None)
-        df.to_excel("data/tickers1.xlsx")
+        df.to_excel("data/tickers.xlsx")
+        print("New dataset was added")
         with open("data/number_of_stocks.txt", "w+") as f:
             f.write(str(number_of_stocks))
+        print("Number of stocks was added")

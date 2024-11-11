@@ -13,4 +13,5 @@ class DataIngestion():
 		for symbol in soup.find_all(class_="Fw(b)", attrs={"data-test":"symbol-link"}):
 			symbols.append(symbol.text)
 		return symbols		
-
+	
+	

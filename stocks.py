@@ -40,22 +40,41 @@ def get_moving_averages(df, window_size = 3):
     return df.rolling(window = window_size).mean()
 
 def main():
+    # Page config
     st.set_page_config(layout="wide")
+
+    # Header
     st.header("Stock Data Analysis of semiconductor companies")
+
+    # Get Number of stocks
     number_of_stocks = get_number_of_stocks()
+
+    # Get clean data
     df = get_clean_data("tickers.xlsx", number_of_stocks=number_of_stocks)
+
+    # Get line plot for original data
     fig = get_line_plot(df=df)
     st.plotly_chart(fig, use_container_width=True)
+
+    # Get returns
     returns_df = get_returns(df=df)
     st.write(returns_df)
+
+    # Get line plot for returns
     fig2 = get_line_plot(df=returns_df)
     st.plotly_chart(fig2, use_container_width=True)
+
+    # Get average returns
     avg_returns = get_average_returns(returns_df)
     st.write(avg_returns.to_frame().T)
     st.caption("This is average returns")
+
+    # Get standard devidation of returns
     std_returns = get_std_returns(returns_df)
     st.write(std_returns.to_frame().T)
     st.caption("This is standard deviation of returns")
+
+    # Get moving average
     moving_averages = get_moving_averages(returns_df)
     fig3 = get_line_plot(moving_averages)
     st.plotly_chart(fig3)

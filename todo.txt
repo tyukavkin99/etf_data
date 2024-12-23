@@ -1,1 +1,3 @@
-add support for one stock if selected
+- add support for one stock if selected
+
+- add arg parser to main function in stocks.py

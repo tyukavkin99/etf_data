@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
-import components.get_data_and_dates as get_excel_data
+import src.get_data_and_dates as get_excel_data
 
 def get_clean_data(data_path, number_of_stocks):
     number_of_columns = number_of_stocks+2

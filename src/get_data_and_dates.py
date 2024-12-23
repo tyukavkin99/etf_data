@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from components.get_symbols import DataIngestion
-from components.get_stock_data import DataFrameStock
+from src.get_symbols import DataIngestion
+from src.get_stock_data import DataFrameStock
 import sys
 from datetime import date, datetime
 from dateutil.relativedelta import relativedelta

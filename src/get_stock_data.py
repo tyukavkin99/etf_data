@@ -4,29 +4,34 @@ import yfinance as yf
 
 class DataFrameStock():
 	def __init__(self, stocks, current_date=None, past_date=None):
-		self.stocks = stocks
-		self.current_date = current_date
-		self.past_date = past_date
-		self.number_of_stocks = None
+		self._stocks = stocks
+		self._current_date = current_date
+		self._past_date = past_date
+		self._number_of_stocks = None
 	
-	def set_current_date(self, value):
-		self.current_date = value
+	@property	
+	def current_date(self):
+		print(self._current_date)
 	
-	def set_past_date(self, value):
-		self.past_date = value
-	
-	def get_current_date(self):
-		print(self.current_date)
+	@property
+	def past_date(self):
+		print(self._past_date)
 
-	def get_past_date(self):
-		print(self.past_date)
-
+	@current_date.setter
+	def current_date(self, value):
+		self._current_date = value
+	
+	@past_date.setter
+	def past_date(self, value):
+		self._past_date = value
+	
 	def get_dataframe(self):
-		df = yf.download(self.stocks, start=self.past_date, end=self.current_date, interval="1wk", auto_adjust=True)
+		df = yf.download(self._stocks, start=self._past_date, end=self._current_date, interval="1wk", auto_adjust=True)
 		return df
-	
-	def get_number_of_stocks(self):
-		self.number_of_stocks = len(self.stocks)
-		return self.number_of_stocks
+
+	@property	
+	def number_of_stocks(self):
+		self._number_of_stocks = len(self._stocks)
+		return self._number_of_stocks
 
 

@@ -2,12 +2,10 @@ import requests
 from bs4 import BeautifulSoup
 
 class DataIngestion():	
-	def __init__(self, url_link, headers):
-		self.url_link = url_link
-		self.headers = headers
-
-	def get_data(self):
-		response = requests.request("GET", self.url_link, headers=self.headers)
+	
+	@staticmethod
+	def get_data(url_link, headers):
+		response = requests.request("GET", url_link, headers=headers)
 		soup = BeautifulSoup(response.content, "html.parser")
 		symbols = []
 		for symbol in soup.find_all(class_="Fw(b)", attrs={"data-test":"symbol-link"}):

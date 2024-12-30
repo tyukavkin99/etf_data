@@ -26,9 +26,6 @@ class GetDataDates:
         stock_getter = DataFrameStock(symbol_list, current_date=current, past_date=past_date)
         stock_getter.set_number_of_stocks()
         n_of_stocks = stock_getter.number_of_stocks
-        print("Stock data: ", stock_getter.stocks)        
-        print("Current date: ", stock_getter.current_date)
-        print("Past data: ", stock_getter.past_date)        
         df = stock_getter\
             .get_dataframe()\
             .reset_index()

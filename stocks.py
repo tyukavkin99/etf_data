@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 import src.get_data_and_dates as get_excel_data
+import src as fin_opt
 
 def get_clean_data(data_path, number_of_stocks):
     number_of_columns = number_of_stocks+2
@@ -18,11 +19,8 @@ def get_clean_data(data_path, number_of_stocks):
     df_na = df_na.drop(columns="index")
     return df_na
 
-def get_returns(df):
-    return df.pct_change().fillna(0)
-
 def get_number_of_stocks():
-    with open("number_of_stocks.txt", "r") as f:
+    with open("data/number_of_stocks.txt", "r") as f:
         number_of_stocks = f.readline()
         number_of_stocks = number_of_stocks.replace("\n", "")
         return int(number_of_stocks)
@@ -30,15 +28,6 @@ def get_number_of_stocks():
 def get_line_plot(df):
     figure = px.line(data_frame=df)
     return figure
-
-def get_average_returns(df):
-    return df.mean()
-
-def get_std_returns(df):
-    return df.std()
-
-def get_moving_averages(df, window_size = 3):
-    return df.rolling(window = window_size).mean()
 
 def main():
     # Run script to get excel file
@@ -54,14 +43,14 @@ def main():
     number_of_stocks = get_number_of_stocks()
 
     # Get clean data
-    df = get_clean_data("tickers.xlsx", number_of_stocks=number_of_stocks)
+    df = get_clean_data("data/tickers.xlsx", number_of_stocks=number_of_stocks)
 
     # Get line plot for original data
     fig = get_line_plot(df=df)
     st.plotly_chart(fig, use_container_width=True)
 
     # Get returns
-    returns_df = get_returns(df=df)
+    returns_df = fin_opt.get_returns(df=df)
     st.write(returns_df)
 
     # Get line plot for returns
@@ -69,17 +58,17 @@ def main():
     st.plotly_chart(fig2, use_container_width=True)
 
     # Get average returns
-    avg_returns = get_average_returns(returns_df)
+    avg_returns = fin_opt.get_average_returns(returns_df)
     st.write(avg_returns.to_frame().T)
     st.caption("This is average returns")
 
     # Get standard devidation of returns
-    std_returns = get_std_returns(returns_df)
+    std_returns = fin_opt.get_std_returns(returns_df)
     st.write(std_returns.to_frame().T)
     st.caption("This is standard deviation of returns")
 
     # Get moving average
-    moving_averages = get_moving_averages(returns_df)
+    moving_averages = fin_opt.get_moving_averages(returns_df, 3)
     fig3 = get_line_plot(moving_averages)
     st.plotly_chart(fig3)
 
